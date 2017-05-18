@@ -1,0 +1,7 @@
+---
+
+- name: Spark - download 2.7.3 package
+  get_url:
+    url: "https://archive.apache.org/dist/spark/spark-2.1.1/spark-2.1.1-bin-hadoop2.7.tgz"
+    dest: /home/ubuntu
+    mode: 0444
