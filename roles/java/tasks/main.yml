@@ -2,3 +2,6 @@
 
 - name: Java - install OpenJDK
   apt: name=openjdk-8-jdk state=present
+  
+- name: Java - set java home
+  lineinfile: name="/etc/environment" regex="^JAVA_HOME" line="JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64"
