@@ -1,3 +1,19 @@
 ---
 
-- name: Hadoop 
+- name: Hadoop - preparation
+  apt: name={{ item }} state=present
+  with_items:
+    - ssh
+    - rsync
+
+- name: Hadoop - download 2.7.3 package
+  get_url:
+    url: "https://archive.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz"
+    dest: /home/ubuntu
+    mode: 0444
+
+- name: Hadoop - install 2.7.3 package
+  unarchive:
+    src: /home/ubuntu/hadoop-2.7.3.tar.gz
+    dest: /opt
+    remote_src: true
