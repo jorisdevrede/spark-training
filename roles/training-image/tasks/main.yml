@@ -1,4 +1,19 @@
 ---
 
+- name: Hadoop - preparation
+  apt: name={{ item }} state=present
+  with_items:
+    - ssh
+    - rsync
+
 - name: Training Image - disable automatic updates
   lineinfile: name='/etc/apt/apt.conf.d/10periodic' regexp='Update-Package-Lists' line='APT::Periodic::Update-Package-Lists "0";'
+
+- name: generate key
+  command: ssh-keygen -t rsa -f /root/.ssh/id_rsa
+
+- name: Set authorized key took from file
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
