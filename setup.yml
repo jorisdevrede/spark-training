@@ -4,4 +4,7 @@
   become: yes
   
   roles:
-- training-image
+  - training-image
+  - java
+  - hadoop
+  - spark
