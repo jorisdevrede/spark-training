@@ -9,9 +9,14 @@
 - name: Training Image - disable automatic updates
   lineinfile: name='/etc/apt/apt.conf.d/10periodic' regexp='Update-Package-Lists' line='APT::Periodic::Update-Package-Lists "0";'
 
+- name: check key
+  stat: name=/root.ssh/id_rsa.pub
+  register: tmp_ssh
+
 - name: generate key
   command: ssh-keygen -t rsa -f /root/.ssh/id_rsa
-
+  when: not tmp_ssh.stat.exists | bool
+  
 - name: Set authorized key took from file
   authorized_key:
     user: root
