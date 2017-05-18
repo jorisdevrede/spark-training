@@ -11,3 +11,65 @@
     src: /home/ubuntu/hadoop-2.7.3.tar.gz
     dest: /opt
     remote_src: true
+
+- name: Hadoop - fs.defaultFS
+  lineinfile: 
+    name: /opt/hadoop-2.7.3/etc/hadoop/core-site.xml 
+    state: present 
+    regexp: "^    <property><name>fs.defaultFS</name>"
+    line: "    <property><name>fs.defaultFS</name><value>hdfs://{{ ansible_hostname }}:8020</value></property>"
+    insertbefore: "</configuration>"
+    
+- name: Hadoop - dfs.replication
+  lineinfile: 
+    name: /opt/hadoop-2.7.3/etc/hadoop/hdfs-site.xml 
+    state: present 
+    regexp: "^    <property><name>dfs.replication</name>"
+    line: "    <property><name>dfs.replication</name><value>1</value></property>"
+    insertbefore: "</configuration>"
+
+- name: Hadoop - namenode dir
+  file: path=/opt/hadoop-2.7.3/data/nn state=directory
+
+- name: Hadoop - dfs.namenode.name.dir
+  lineinfile: 
+    name: /opt/hadoop-2.7.3/etc/hadoop/hdfs-site.xml 
+    state: present 
+    regexp: "^    <property><name>dfs.namenode.name.dir</name>"
+    line: "    <property><name>dfs.namenode.name.dir</name><value>/opt/hadoop-2.7.3/data/nn</value></property>"
+    insertbefore: "</configuration>"
+
+- name: Hadoop - datanode dir
+  file: path=/opt/hadoop-2.7.3/data/dn state=directory
+
+- name: Hadoop - dfs.datanode.data.dir
+  lineinfile: 
+    name: /opt/hadoop-2.7.3/etc/hadoop/hdfs-site.xml 
+    state: present 
+    regexp: "^    <property><name>dfs.datanode.data.dir</name>"
+    line: "    <property><name>dfs.datanode.data.dir</name><value>/opt/hadoop-2.7.3/data/dn</value></property>"
+    insertbefore: "</configuration>"
+    
+- name: Hadoop - yarn.resourcemanager.address
+  lineinfile: 
+    name: /opt/hadoop-2.7.3/etc/hadoop/yarn-site.xml 
+    state: present 
+    regexp: "^    <property><name>yarn.resourcemanager.address</name>"
+    line: "    <property><name>yarn.resourcemanager.address</name><value>{{ ansible_hostname }}:8032</value></property>"
+    insertbefore: "</configuration>"
+        
+- name: Hadoop - yarn.resourcemanager.address
+  lineinfile: 
+    name: /opt/hadoop-2.7.3/etc/hadoop/yarn-site.xml 
+    state: present 
+    regexp: "^    <property><name>yarn.nodemanager.vmem-check-enabled</name>"
+    line: "    <property><name>yarn.nodemanager.vmem-check-enabled</name><value>false</value></property>"
+    insertbefore: "</configuration>"
+              
+- name: Hadoop - check format
+  stat: name=/opt/hadoop-2.7.3/data/nn/current/VERSION
+  register: tmp_hdfs
+  
+- name: Hadoop - format
+  command: /opt/hadoop-2.7.3/bin/hdfs namenode -format
+  when: not tmp_hdfs.stat.exists | bool
