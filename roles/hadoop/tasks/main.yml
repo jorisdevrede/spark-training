@@ -1,11 +1,5 @@
 ---
 
-- name: Hadoop - preparation
-  apt: name={{ item }} state=present
-  with_items:
-    - ssh
-    - rsync
-
 - name: Hadoop - download 2.7.3 package
   get_url:
     url: "https://archive.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz"
