@@ -5,6 +5,7 @@
     url: "https://archive.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz"
     dest: /home/ubuntu
     mode: 0444
+    validate_certs: false
 
 - name: Hadoop - install 2.7.3 package
   unarchive:
@@ -58,16 +59,24 @@
     line: "    <property><name>yarn.resourcemanager.address</name><value>{{ ansible_hostname }}:8032</value></property>"
     insertbefore: "</configuration>"
         
-- name: Hadoop - yarn.resourcemanager.address
+- name: Hadoop - yarn.nodemanager.vmem-check-enabled
   lineinfile: 
     name: /opt/hadoop-2.7.3/etc/hadoop/yarn-site.xml 
     state: present 
     regexp: "^    <property><name>yarn.nodemanager.vmem-check-enabled</name>"
     line: "    <property><name>yarn.nodemanager.vmem-check-enabled</name><value>false</value></property>"
     insertbefore: "</configuration>"
+
+- name: Hadoop - yarn.nodemanager.vmem-pmem-ratio
+  lineinfile: 
+    name: /opt/hadoop-2.7.3/etc/hadoop/yarn-site.xml 
+    state: present 
+    regexp: "^    <property><name>yarn.nodemanager.vmem-pmem-ratio</name>"
+    line: "    <property><name>yarn.nodemanager.vmem-pmem-ratio</name><value>5</value></property>"
+    insertbefore: "</configuration>"
               
 - name: Hadoop - check format
-  stat: name=/opt/hadoop-2.7.3/data/nn/current/VERSION
+  stat: path=/opt/hadoop-2.7.3/data/nn/current/VERSION
   register: tmp_hdfs
   
 - name: Hadoop - format
