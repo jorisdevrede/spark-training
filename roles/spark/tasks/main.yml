@@ -1,7 +1,16 @@
 ---
 
+- name: Spark - create package dir
+  file:
+    path: /home/ubuntu/packages
+    mode: 0755
+    owner: ubuntu
+    group: ubuntu
+
 - name: Spark - download 2.2.0 package
   get_url:
     url: "http://apache.hippo.nl/spark/spark-2.2.0/spark-2.2.0-bin-hadoop2.7.tgz"
-    dest: /home/ubuntu
+    dest: /home/ubuntu/packages
     mode: 0444
+    owner: ubuntu
+    group: ubuntu
