@@ -10,7 +10,7 @@
 - name: Hadoop - download 2.7.3 package
   get_url:
     url: "https://archive.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz"
-    dest: /home/ubuntu
+    dest: /home/ubuntu/packages
     mode: 0444
     owner: ubuntu
     group: ubuntu
@@ -18,7 +18,7 @@
 
 - name: Hadoop - install 2.7.3 package
   unarchive:
-    src: /home/ubuntu/hadoop-2.7.3.tar.gz
+    src: /home/ubuntu/packages/hadoop-2.7.3.tar.gz
     dest: /opt
     remote_src: true
 
