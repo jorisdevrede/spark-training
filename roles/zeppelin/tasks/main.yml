@@ -1,0 +1,14 @@
+---
+
+- name: Zeppelin - download 0.7.3
+  get_url:
+    url: "http://ftp.tudelft.nl/zeppelin/zeppelin-0.7.3/zeppelin-0.7.3-bin-all.tgz"
+    dest: /home/ubuntu
+    mode: 0444
+    validate_certs: false
+
+- name: Zeppelin - unpack 0.7.3
+  unarchive:
+    src: /home/ubuntu/zeppelin-0.7.3-bin-all.tgz
+    dest: /opt
+    remote_src: true

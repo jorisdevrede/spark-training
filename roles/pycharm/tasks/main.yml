@@ -1,0 +1,19 @@
+---
+
+- name: PyCharm - download 2017.2.4
+  get_url:
+    url: "https://download.jetbrains.com/python/pycharm-community-2017.2.4.tar.gz"
+    dest: /home/ubuntu
+    mode: -444
+    validate_certs: false
+
+- name: PyCharm - unpack 2017.2.4
+  unarchive:
+    src: /home/ubuntu/pycharm-community-2017.2.4.tar.gz
+    dest: /opt
+    remote_src: true
+
+- name: PyCharm - start
+  command: /opt/pycharm-community-2017.2.4.tar.gz/bin/pycharm.sh
+  become: true
+  become_user: ubuntu
