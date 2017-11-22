@@ -3,6 +3,7 @@
 - name: Spark - create package dir
   file:
     path: /home/ubuntu/packages
+    state: directory
     mode: 0755
     owner: ubuntu
     group: ubuntu
