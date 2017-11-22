@@ -1,15 +1,24 @@
 ---
 
+- name: Hadoop - create package dir
+  file:
+    path: /home/ubuntu/packages
+    mode: 0755
+    owner: ubuntu
+    group: ubuntu
+
 - name: PyCharm - download 2017.2.4
   get_url:
     url: "https://download.jetbrains.com/python/pycharm-community-2017.2.4.tar.gz"
-    dest: /home/ubuntu
-    mode: -444
+    dest: /home/ubuntu/packages
+    mode: 0444
+    owner: ubuntu
+    group: ubuntu
     validate_certs: false
 
 - name: PyCharm - unpack 2017.2.4
   unarchive:
-    src: /home/ubuntu/pycharm-community-2017.2.4.tar.gz
+    src: /home/ubuntu/packages/pycharm-community-2017.2.4.tar.gz
     dest: /opt
     remote_src: true
 
