@@ -1,14 +1,23 @@
 ---
 
+- name: Zeppelin - create package dir
+  file:
+    path: /home/ubuntu/packages
+    mode: 0755
+    owner: ubuntu
+    group: ubuntu
+
 - name: Zeppelin - download 0.7.3
   get_url:
     url: "http://apache.hippo.nl/zeppelin/zeppelin-0.7.3/zeppelin-0.7.3-bin-all.tgz"
-    dest: /home/ubuntu
+    dest: /home/ubuntu/packages
     mode: 0444
+    owner: ubuntu
+    group: ubuntu
     validate_certs: false
 
 - name: Zeppelin - unpack 0.7.3
   unarchive:
-    src: /home/ubuntu/zeppelin-0.7.3-bin-all.tgz
+    src: /home/ubuntu/packages/zeppelin-0.7.3-bin-all.tgz
     dest: /opt
     remote_src: true
