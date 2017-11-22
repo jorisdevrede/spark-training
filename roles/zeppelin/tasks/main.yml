@@ -2,7 +2,7 @@
 
 - name: Zeppelin - download 0.7.3
   get_url:
-    url: "http://ftp.tudelft.nl/zeppelin/zeppelin-0.7.3/zeppelin-0.7.3-bin-all.tgz"
+    url: "http://apache.hippo.nl/zeppelin/zeppelin-0.7.3/zeppelin-0.7.3-bin-all.tgz"
     dest: /home/ubuntu
     mode: 0444
     validate_certs: false
