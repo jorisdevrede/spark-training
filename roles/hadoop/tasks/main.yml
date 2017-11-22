@@ -1,10 +1,19 @@
 ---
 
+- name: Hadoop - create package dir
+  file:
+    path: /home/ubuntu/packages
+    mode: 0755
+    owner: ubuntu
+    group: ubuntu
+
 - name: Hadoop - download 2.7.3 package
   get_url:
     url: "https://archive.apache.org/dist/hadoop/common/hadoop-2.7.3/hadoop-2.7.3.tar.gz"
     dest: /home/ubuntu
     mode: 0444
+    owner: ubuntu
+    group: ubuntu
     validate_certs: false
 
 - name: Hadoop - install 2.7.3 package
