@@ -14,6 +14,6 @@
     remote_src: true
 
 - name: PyCharm - start
-  command: /opt/pycharm-community-2017.2.4.tar.gz/bin/pycharm.sh
+  command: /opt/pycharm-community-2017.2.4/bin/pycharm.sh
   become: true
   become_user: ubuntu
