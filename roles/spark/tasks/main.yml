@@ -2,6 +2,6 @@
 
 - name: Spark - download 2.2.0 package
   get_url:
-    url: "https://www.apache.org/dyn/closer.lua/spark/spark-2.2.0/spark-2.2.0-bin-hadoop2.7.tgz"
+    url: "http://apache.hippo.nl/spark/spark-2.2.0/spark-2.2.0-bin-hadoop2.7.tgz"
     dest: /home/ubuntu
     mode: 0444
